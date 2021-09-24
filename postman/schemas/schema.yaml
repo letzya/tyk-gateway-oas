@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   title: Tyk Gateway API
-  version: 3.7.0
+  version: 3.7.2
   description: |-
     The Tyk Gateway REST API is the primary means for integrating your application with the Tyk API Gateway system. This API is very small, and has no granular permissions system. It is intended to be used purely for internal automation and integration.
 
@@ -540,7 +540,7 @@ paths:
                 $ref: '#/components/schemas/apiStatusMessage'
               example:
                 status: ok
-  '/tyk/hello':
+  '/hello':
     get:
       summary: Check the Health of the Gateway
       description: |
@@ -550,28 +550,6 @@ paths:
       tags:
         - Health Checking
       operationId: hello
-      responses:
-        '200':
-          description: Success
-          content:
-            text/html:
-              schema:
-                type: string
-              example: "Hello Tiki"
-  '/tyk/{listenPath}/hello':
-    parameters:
-      - in: path
-        name: listenPath
-        required: true
-        description: "Listen path of loaded API"
-        schema:
-          type: string
-    get:
-      summary: Check the Health of the API
-      description: Should point to API domain if it has own
-      tags:
-        - Health Checking
-      operationId: helloAPI
       responses:
         '200':
           description: Success
