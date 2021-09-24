@@ -1,0 +1,2444 @@
+{
+    "info": {
+        "_postman_id": "cc998f55-eb17-40d8-8702-fc60f8d717b7",
+        "name": "test-col",
+        "description": "The Tyk Gateway REST API is the primary means for integrating your application with the Tyk API Gateway system. This API is very small, and has no granular permissions system. It is intended to be used purely for internal automation and integration.\n\n**Warning: Under no circumstances should outside parties be granted access to this API.**\n\nThe Tyk Gateway API is capable of:\n\n* Managing session objects (key generation)\n* Managing and listing policies\n* Managing and listing API Definitions (only when not using the Dashboard)\n* Hot reloads / reloading a cluster configuration\n* OAuth client creation (only when not using the Dashboard)\n\n\nIn order to use the REST API, you'll need to set the `secret` parameter in your tyk.conf file.\n\nThe shared secret you set should then be sent along as a header with each REST API Request in order for it to be successful:\n\n```\nx-tyk-authorization: <your-secret>\n```\n<br/>\n<b>The Tyk Gateway API is subsumed by the Tyk Dashboard API in Pro installations.</b>",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "tyk",
+            "item": [
+                {
+                    "name": "apis",
+                    "item": [
+                        {
+                            "name": "{api ID}",
+                            "item": [
+                                {
+                                    "name": "get Api",
+                                    "id": "35bc32a0-c882-40ba-9e4f-106e7c772629",
+                                    "request": {
+                                        "method": "GET",
+                                        "header": [],
+                                        "url": {
+                                            "raw": "{{baseUrl}}/tyk/apis/:apiID",
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "path": [
+                                                "tyk",
+                                                "apis",
+                                                ":apiID"
+                                            ],
+                                            "variable": [
+                                                {
+                                                    "id": "4fd65431-cf9b-44d6-bda3-2ea44fed8510",
+                                                    "key": "apiID",
+                                                    "value": "aliqua",
+                                                    "description": "(Required) The API ID"
+                                                }
+                                            ]
+                                        },
+                                        "description": "Get API definition\nOnly if used without the Tyk Dashboard"
+                                    },
+                                    "response": [
+                                        {
+                                            "id": "a6430f06-7c71-4826-9554-c9ccbd924fdc",
+                                            "name": "API definition",
+                                            "originalRequest": {
+                                                "method": "GET",
+                                                "header": [
+                                                    {
+                                                        "description": "Added as a part of security scheme: apikey",
+                                                        "key": "X-Tyk-Authorization",
+                                                        "value": "<API Key>"
+                                                    }
+                                                ],
+                                                "url": {
+                                                    "raw": "{{baseUrl}}/tyk/apis/:apiID",
+                                                    "host": [
+                                                        "{{baseUrl}}"
+                                                    ],
+                                                    "path": [
+                                                        "tyk",
+                                                        "apis",
+                                                        ":apiID"
+                                                    ],
+                                                    "variable": [
+                                                        {
+                                                            "key": "apiID"
+                                                        }
+                                                    ]
+                                                }
+                                            },
+                                            "status": "OK",
+                                            "code": 200,
+                                            "_postman_previewlanguage": "json",
+                                            "header": [
+                                                {
+                                                    "key": "Content-Type",
+                                                    "value": "application/json"
+                                                }
+                                            ],
+                                            "cookie": [],
+                                            "responseTime": null,
+                                            "body": "{\n \"name\": \"TestAPI\",\n \"use_keyless\": true,\n \"active\": true,\n \"proxy\": {\n  \"listen_path\": \"/test\"\n }\n}"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "update Api",
+                                    "id": "07679bce-0bf5-4903-aadd-ba49bda60c91",
+                                    "request": {
+                                        "method": "PUT",
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n    \"name\": \"TestAPI\",\n    \"use_keyless\": true,\n    \"active\": true,\n    \"proxy\": {\n        \"listen_path\": \"/test\"\n    }\n}"
+                                        },
+                                        "url": {
+                                            "raw": "{{baseUrl}}/tyk/apis/:apiID",
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "path": [
+                                                "tyk",
+                                                "apis",
+                                                ":apiID"
+                                            ],
+                                            "variable": [
+                                                {
+                                                    "id": "cb6e8f21-e0a4-4e3a-a816-a26f3852877a",
+                                                    "key": "apiID",
+                                                    "value": "aliqua",
+                                                    "description": "(Required) The API ID"
+                                                }
+                                            ]
+                                        },
+                                        "description": "Updating an API definition uses the same signature an object as a `POST`, however it will first ensure that the API ID that is being updated is the same as the one in the object being `PUT`.\n\n\nUpdating will completely replace the file descriptor and will not change an API Definition that has already been loaded, the hot-reload endpoint will need to be called to push the new definition to live.\n"
+                                    },
+                                    "response": [
+                                        {
+                                            "id": "7a84c13e-c39c-442c-bcc0-a561ae89e7c2",
+                                            "name": "API updated",
+                                            "originalRequest": {
+                                                "method": "PUT",
+                                                "header": [
+                                                    {
+                                                        "description": "Added as a part of security scheme: apikey",
+                                                        "key": "X-Tyk-Authorization",
+                                                        "value": "<API Key>"
+                                                    }
+                                                ],
+                                                "body": {
+                                                    "mode": "raw",
+                                                    "raw": "{\n    \"name\": \"TestAPI\",\n    \"use_keyless\": true,\n    \"active\": true,\n    \"proxy\": {\n        \"listen_path\": \"/test\"\n    }\n}"
+                                                },
+                                                "url": {
+                                                    "raw": "{{baseUrl}}/tyk/apis/:apiID",
+                                                    "host": [
+                                                        "{{baseUrl}}"
+                                                    ],
+                                                    "path": [
+                                                        "tyk",
+                                                        "apis",
+                                                        ":apiID"
+                                                    ],
+                                                    "variable": [
+                                                        {
+                                                            "key": "apiID"
+                                                        }
+                                                    ]
+                                                }
+                                            },
+                                            "status": "OK",
+                                            "code": 200,
+                                            "_postman_previewlanguage": "json",
+                                            "header": [
+                                                {
+                                                    "key": "Content-Type",
+                                                    "value": "application/json"
+                                                }
+                                            ],
+                                            "cookie": [],
+                                            "responseTime": null,
+                                            "body": "{\n \"status\": \"ok\",\n \"action\": \"updated\",\n \"key\": \"{...API JSON definition...}\"\n}"
+                                        },
+                                        {
+                                            "id": "638050b4-a4c4-4364-8adc-e0c9058c19f2",
+                                            "name": "Malformed data",
+                                            "originalRequest": {
+                                                "method": "PUT",
+                                                "header": [
+                                                    {
+                                                        "description": "Added as a part of security scheme: apikey",
+                                                        "key": "X-Tyk-Authorization",
+                                                        "value": "<API Key>"
+                                                    }
+                                                ],
+                                                "body": {
+                                                    "mode": "raw",
+                                                    "raw": "{\n    \"name\": \"TestAPI\",\n    \"use_keyless\": true,\n    \"active\": true,\n    \"proxy\": {\n        \"listen_path\": \"/test\"\n    }\n}"
+                                                },
+                                                "url": {
+                                                    "raw": "{{baseUrl}}/tyk/apis/:apiID",
+                                                    "host": [
+                                                        "{{baseUrl}}"
+                                                    ],
+                                                    "path": [
+                                                        "tyk",
+                                                        "apis",
+                                                        ":apiID"
+                                                    ],
+                                                    "variable": [
+                                                        {
+                                                            "key": "apiID"
+                                                        }
+                                                    ]
+                                                }
+                                            },
+                                            "status": "Bad Request",
+                                            "code": 400,
+                                            "_postman_previewlanguage": "json",
+                                            "header": [
+                                                {
+                                                    "key": "Content-Type",
+                                                    "value": "application/json"
+                                                }
+                                            ],
+                                            "cookie": [],
+                                            "responseTime": null,
+                                            "body": "{\n \"status\": \"error\",\n \"message\": \"Malformed API data\"\n}"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "delete Api",
+                                    "id": "fdb91cc0-83dd-4399-b1ce-b0935bdb6bfa",
+                                    "request": {
+                                        "method": "DELETE",
+                                        "header": [],
+                                        "url": {
+                                            "raw": "{{baseUrl}}/tyk/apis/:apiID",
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "path": [
+                                                "tyk",
+                                                "apis",
+                                                ":apiID"
+                                            ],
+                                            "variable": [
+                                                {
+                                                    "id": "56323ffc-a33b-4bc9-ac3a-357c308c6578",
+                                                    "key": "apiID",
+                                                    "value": "aliqua",
+                                                    "description": "(Required) The API ID"
+                                                }
+                                            ]
+                                        },
+                                        "description": "Deleting an API definition will remove the file from the file store, the API definition will NOT be unloaded, a separate reload request will need to be made to disable the API endpoint."
+                                    },
+                                    "response": [
+                                        {
+                                            "id": "d2961fb9-73e2-4f03-bb45-1a6039c346f0",
+                                            "name": "API deleted",
+                                            "originalRequest": {
+                                                "method": "DELETE",
+                                                "header": [
+                                                    {
+                                                        "description": "Added as a part of security scheme: apikey",
+                                                        "key": "X-Tyk-Authorization",
+                                                        "value": "<API Key>"
+                                                    }
+                                                ],
+                                                "url": {
+                                                    "raw": "{{baseUrl}}/tyk/apis/:apiID",
+                                                    "host": [
+                                                        "{{baseUrl}}"
+                                                    ],
+                                                    "path": [
+                                                        "tyk",
+                                                        "apis",
+                                                        ":apiID"
+                                                    ],
+                                                    "variable": [
+                                                        {
+                                                            "key": "apiID"
+                                                        }
+                                                    ]
+                                                }
+                                            },
+                                            "status": "OK",
+                                            "code": 200,
+                                            "_postman_previewlanguage": "json",
+                                            "header": [
+                                                {
+                                                    "key": "Content-Type",
+                                                    "value": "application/json"
+                                                }
+                                            ],
+                                            "cookie": [],
+                                            "responseTime": null,
+                                            "body": "{\n \"message\": \"API deleted\",\n \"status\": \"ok\"\n}"
+                                        },
+                                        {
+                                            "id": "c41d8a23-af8c-4168-9a64-b5d026d83a90",
+                                            "name": "No API ID specified",
+                                            "originalRequest": {
+                                                "method": "DELETE",
+                                                "header": [
+                                                    {
+                                                        "description": "Added as a part of security scheme: apikey",
+                                                        "key": "X-Tyk-Authorization",
+                                                        "value": "<API Key>"
+                                                    }
+                                                ],
+                                                "url": {
+                                                    "raw": "{{baseUrl}}/tyk/apis/:apiID",
+                                                    "host": [
+                                                        "{{baseUrl}}"
+                                                    ],
+                                                    "path": [
+                                                        "tyk",
+                                                        "apis",
+                                                        ":apiID"
+                                                    ],
+                                                    "variable": [
+                                                        {
+                                                            "key": "apiID"
+                                                        }
+                                                    ]
+                                                }
+                                            },
+                                            "status": "Bad Request",
+                                            "code": 400,
+                                            "_postman_previewlanguage": "json",
+                                            "header": [
+                                                {
+                                                    "key": "Content-Type",
+                                                    "value": "application/json"
+                                                }
+                                            ],
+                                            "cookie": [],
+                                            "responseTime": null,
+                                            "body": "{\n \"message\": \"API ID not specified\",\n \"status\": \"error\"\n}"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "id": "6857f4e3-77a7-40b0-8412-9e842b3a25b0"
+                        },
+                        {
+                            "name": "list Apis",
+                            "id": "66aaf955-8e87-476f-9b3e-861c742119c3",
+                            "request": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{baseUrl}}/tyk/apis",
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "path": [
+                                        "tyk",
+                                        "apis"
+                                    ]
+                                },
+                                "description": "List APIs\n Only if used without the Tyk Dashboard"
+                            },
+                            "response": [
+                                {
+                                    "id": "5e6207dd-06cf-4d01-b63d-d727f3bd1883",
+                                    "name": "List of API definitions",
+                                    "originalRequest": {
+                                        "method": "GET",
+                                        "header": [
+                                            {
+                                                "description": "Added as a part of security scheme: apikey",
+                                                "key": "X-Tyk-Authorization",
+                                                "value": "<API Key>"
+                                            }
+                                        ],
+                                        "url": {
+                                            "raw": "{{baseUrl}}/tyk/apis",
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "path": [
+                                                "tyk",
+                                                "apis"
+                                            ]
+                                        }
+                                    },
+                                    "status": "OK",
+                                    "code": 200,
+                                    "_postman_previewlanguage": "json",
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                        }
+                                    ],
+                                    "cookie": [],
+                                    "responseTime": null,
+                                    "body": "[\n {\n  \"name\": \"TestAPI\",\n  \"use_keyless\": true,\n  \"active\": true,\n  \"proxy\": {\n   \"listen_path\": \"/test\"\n  }\n }\n]"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "create Api",
+                            "id": "e4b3f4b6-e5fc-4b4b-9c0a-758491273233",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"name\": \"TestAPI\",\n    \"use_keyless\": true,\n    \"active\": true,\n    \"proxy\": {\n        \"listen_path\": \"/test\"\n    }\n}"
+                                },
+                                "url": {
+                                    "raw": "{{baseUrl}}/tyk/apis",
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "path": [
+                                        "tyk",
+                                        "apis"
+                                    ]
+                                },
+                                "description": "Create API\n A single Tyk node can have its API Definitions queried, deleted and updated remotely. This functionality enables you to remotely update your Tyk definitions without having to manage the files manually."
+                            },
+                            "response": [
+                                {
+                                    "id": "863111d8-e408-4355-b1ed-aa105fb89a20",
+                                    "name": "API created",
+                                    "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                            {
+                                                "description": "Added as a part of security scheme: apikey",
+                                                "key": "X-Tyk-Authorization",
+                                                "value": "<API Key>"
+                                            }
+                                        ],
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n    \"name\": \"TestAPI\",\n    \"use_keyless\": true,\n    \"active\": true,\n    \"proxy\": {\n        \"listen_path\": \"/test\"\n    }\n}"
+                                        },
+                                        "url": {
+                                            "raw": "{{baseUrl}}/tyk/apis",
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "path": [
+                                                "tyk",
+                                                "apis"
+                                            ]
+                                        }
+                                    },
+                                    "status": "OK",
+                                    "code": 200,
+                                    "_postman_previewlanguage": "json",
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                        }
+                                    ],
+                                    "cookie": [],
+                                    "responseTime": null,
+                                    "body": "{\n \"status\": \"ok\",\n \"action\": \"created\",\n \"key\": \"{...API JSON definition...}\"\n}"
+                                },
+                                {
+                                    "id": "2074f721-7e9c-4707-8071-cf342dce2e82",
+                                    "name": "Malformed data",
+                                    "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                            {
+                                                "description": "Added as a part of security scheme: apikey",
+                                                "key": "X-Tyk-Authorization",
+                                                "value": "<API Key>"
+                                            }
+                                        ],
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n    \"name\": \"TestAPI\",\n    \"use_keyless\": true,\n    \"active\": true,\n    \"proxy\": {\n        \"listen_path\": \"/test\"\n    }\n}"
+                                        },
+                                        "url": {
+                                            "raw": "{{baseUrl}}/tyk/apis",
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "path": [
+                                                "tyk",
+                                                "apis"
+                                            ]
+                                        }
+                                    },
+                                    "status": "Bad Request",
+                                    "code": 400,
+                                    "_postman_previewlanguage": "json",
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                        }
+                                    ],
+                                    "cookie": [],
+                                    "responseTime": null,
+                                    "body": "{\n \"status\": \"error\",\n \"message\": \"Malformed API data\"\n}"
+                                }
+                            ]
+                        }
+                    ],
+                    "id": "cb674113-3748-4614-8fd5-e25bab85148e"
+                },
+                {
+                    "name": "reload",
+                    "item": [
+                        {
+                            "name": "Hot-reload a single node",
+                            "id": "339f0145-59d9-40da-aa97-8f7cfb5615c8",
+                            "request": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{baseUrl}}/tyk/reload/?block=true",
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "path": [
+                                        "tyk",
+                                        "reload",
+                                        ""
+                                    ],
+                                    "query": [
+                                        {
+                                            "key": "block",
+                                            "value": "true",
+                                            "description": "Block a response, until the reload is performed. This can be useful in scripting environments like CI/CD workflows."
+                                        }
+                                    ]
+                                },
+                                "description": "Tyk is capable of reloading configurations without having to stop serving requests, this means that API configurations can be added at runtime, or even modified at runtime and those rules applied immediately without any downtime."
+                            },
+                            "response": [
+                                {
+                                    "id": "a7ab91e5-df87-4757-9321-46ceb7e6b06e",
+                                    "name": "Reload gateway",
+                                    "originalRequest": {
+                                        "method": "GET",
+                                        "header": [
+                                            {
+                                                "description": "Added as a part of security scheme: apikey",
+                                                "key": "X-Tyk-Authorization",
+                                                "value": "<API Key>"
+                                            }
+                                        ],
+                                        "url": {
+                                            "raw": "{{baseUrl}}/tyk/reload/?block=true",
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "path": [
+                                                "tyk",
+                                                "reload",
+                                                ""
+                                            ],
+                                            "query": [
+                                                {
+                                                    "key": "block",
+                                                    "value": "true"
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    "status": "OK",
+                                    "code": 200,
+                                    "_postman_previewlanguage": "json",
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                        }
+                                    ],
+                                    "cookie": [],
+                                    "responseTime": null,
+                                    "body": "{\n \"status\": \"ok\"\n}"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Hot-reload a Tyk group",
+                            "id": "77c50b13-681e-4f71-b43f-1eeae78717d7",
+                            "request": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{baseUrl}}/tyk/reload/group",
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "path": [
+                                        "tyk",
+                                        "reload",
+                                        "group"
+                                    ]
+                                },
+                                "description": "To reload a whole group of Tyk nodes (without using the Dashboard or host manager), you can send an API request to a single node, this node will then send a notification through the pub/sub infrastructure to all other listening nodes (including the host manager if it is being used to manage NginX) which will then trigger a global reload."
+                            },
+                            "response": [
+                                {
+                                    "id": "4ae13b07-1c51-4e01-8f3c-57bca9aad71b",
+                                    "name": "Reload gateway",
+                                    "originalRequest": {
+                                        "method": "GET",
+                                        "header": [
+                                            {
+                                                "description": "Added as a part of security scheme: apikey",
+                                                "key": "X-Tyk-Authorization",
+                                                "value": "<API Key>"
+                                            }
+                                        ],
+                                        "url": {
+                                            "raw": "{{baseUrl}}/tyk/reload/group",
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "path": [
+                                                "tyk",
+                                                "reload",
+                                                "group"
+                                            ]
+                                        }
+                                    },
+                                    "status": "OK",
+                                    "code": 200,
+                                    "_postman_previewlanguage": "json",
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                        }
+                                    ],
+                                    "cookie": [],
+                                    "responseTime": null,
+                                    "body": "{\n \"status\": \"ok\"\n}"
+                                }
+                            ]
+                        }
+                    ],
+                    "id": "296fe4de-29bc-4cbe-b8b8-51b42ae9cf39"
+                },
+                {
+                    "name": "keys",
+                    "item": [
+                        {
+                            "name": "{key ID}",
+                            "item": [
+                                {
+                                    "name": "Get a Key",
+                                    "id": "30668e8a-ef3f-47ab-9e3e-af47c0484a34",
+                                    "request": {
+                                        "method": "GET",
+                                        "header": [],
+                                        "url": {
+                                            "raw": "{{baseUrl}}/tyk/keys/:keyID",
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "path": [
+                                                "tyk",
+                                                "keys",
+                                                ":keyID"
+                                            ],
+                                            "variable": [
+                                                {
+                                                    "id": "f5eb0c79-9b9b-4530-b244-9e06eaadf35d",
+                                                    "key": "keyID",
+                                                    "value": "aliqua",
+                                                    "description": "(Required) The Key ID"
+                                                }
+                                            ]
+                                        },
+                                        "description": "Get session info about the specified key. Should return up to date rate limit and quota usage numbers."
+                                    },
+                                    "response": [
+                                        {
+                                            "id": "a01ba512-6a62-4979-96c4-ca5a8ebfa144",
+                                            "name": "Key object",
+                                            "originalRequest": {
+                                                "method": "GET",
+                                                "header": [
+                                                    {
+                                                        "description": "Added as a part of security scheme: apikey",
+                                                        "key": "X-Tyk-Authorization",
+                                                        "value": "<API Key>"
+                                                    }
+                                                ],
+                                                "url": {
+                                                    "raw": "{{baseUrl}}/tyk/keys/:keyID",
+                                                    "host": [
+                                                        "{{baseUrl}}"
+                                                    ],
+                                                    "path": [
+                                                        "tyk",
+                                                        "keys",
+                                                        ":keyID"
+                                                    ],
+                                                    "variable": [
+                                                        {
+                                                            "key": "keyID"
+                                                        }
+                                                    ]
+                                                }
+                                            },
+                                            "status": "OK",
+                                            "code": 200,
+                                            "_postman_previewlanguage": "json",
+                                            "header": [
+                                                {
+                                                    "key": "Content-Type",
+                                                    "value": "application/json"
+                                                }
+                                            ],
+                                            "cookie": [],
+                                            "responseTime": null,
+                                            "body": "{\n \"quota_max\": 60,\n \"quota_renews\": 1406121006,\n \"quota_renewal_rate\": 60,\n \"allowance\": 100,\n \"rate\": 100,\n \"per\": 5,\n \"org_id\": \"53ac07777cbb8c2d53000002\"\n}"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Update Key or Add custom Key",
+                                    "id": "82453e8a-9e90-46de-919b-707d29cbecd3",
+                                    "request": {
+                                        "method": "PUT",
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n    \"quota_max\": 60,\n    \"quota_renews\": 1406121006,\n    \"quota_renewal_rate\": 60,\n    \"allowance\": 100,\n    \"rate\": 100,\n    \"per\": 5,\n    \"org_id\": \"53ac07777cbb8c2d53000002\"\n}"
+                                        },
+                                        "url": {
+                                            "raw": "{{baseUrl}}/tyk/keys/:keyID?suppress_reset=1",
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "path": [
+                                                "tyk",
+                                                "keys",
+                                                ":keyID"
+                                            ],
+                                            "query": [
+                                                {
+                                                    "key": "suppress_reset",
+                                                    "value": "1",
+                                                    "description": "Adding the suppress_reset parameter and setting it to 1, will cause Tyk not to reset the quota limit that is in the current live quota manager. By default Tyk will reset the quota in the live quota manager (initialising it) when adding a key. Adding the `suppress_reset` flag to the URL parameters will avoid this behaviour."
+                                                }
+                                            ],
+                                            "variable": [
+                                                {
+                                                    "id": "6da84d65-5bd0-4956-a845-dc9197d7b402",
+                                                    "key": "keyID",
+                                                    "value": "aliqua",
+                                                    "description": "(Required) The Key ID"
+                                                }
+                                            ]
+                                        },
+                                        "description": "You can also manually add keys to Tyk using your own key-generation algorithm. It is recommended if using this approach to ensure that the OrgID being used in the API Definition and the key data is blank so that Tyk does not try to prepend or manage the key in any way."
+                                    },
+                                    "response": [
+                                        {
+                                            "id": "e00d87c6-1d93-4294-b359-7d655799a765",
+                                            "name": "Key updated",
+                                            "originalRequest": {
+                                                "method": "PUT",
+                                                "header": [
+                                                    {
+                                                        "description": "Added as a part of security scheme: apikey",
+                                                        "key": "X-Tyk-Authorization",
+                                                        "value": "<API Key>"
+                                                    }
+                                                ],
+                                                "body": {
+                                                    "mode": "raw",
+                                                    "raw": "{\n    \"quota_max\": 60,\n    \"quota_renews\": 1406121006,\n    \"quota_renewal_rate\": 60,\n    \"allowance\": 100,\n    \"rate\": 100,\n    \"per\": 5,\n    \"org_id\": \"53ac07777cbb8c2d53000002\"\n}"
+                                                },
+                                                "url": {
+                                                    "raw": "{{baseUrl}}/tyk/keys/:keyID?suppress_reset=1",
+                                                    "host": [
+                                                        "{{baseUrl}}"
+                                                    ],
+                                                    "path": [
+                                                        "tyk",
+                                                        "keys",
+                                                        ":keyID"
+                                                    ],
+                                                    "query": [
+                                                        {
+                                                            "key": "suppress_reset",
+                                                            "value": "1"
+                                                        }
+                                                    ],
+                                                    "variable": [
+                                                        {
+                                                            "key": "keyID"
+                                                        }
+                                                    ]
+                                                }
+                                            },
+                                            "status": "OK",
+                                            "code": 200,
+                                            "_postman_previewlanguage": "json",
+                                            "header": [
+                                                {
+                                                    "key": "Content-Type",
+                                                    "value": "application/json"
+                                                }
+                                            ],
+                                            "cookie": [],
+                                            "responseTime": null,
+                                            "body": "{\n \"action\": \"updated\",\n \"status\": \"ok\"\n}"
+                                        },
+                                        {
+                                            "id": "d7df69d3-e707-4cfd-bf55-a32ac895e887",
+                                            "name": "No or incorrect Key ID specified",
+                                            "originalRequest": {
+                                                "method": "PUT",
+                                                "header": [
+                                                    {
+                                                        "description": "Added as a part of security scheme: apikey",
+                                                        "key": "X-Tyk-Authorization",
+                                                        "value": "<API Key>"
+                                                    }
+                                                ],
+                                                "body": {
+                                                    "mode": "raw",
+                                                    "raw": "{\n    \"quota_max\": 60,\n    \"quota_renews\": 1406121006,\n    \"quota_renewal_rate\": 60,\n    \"allowance\": 100,\n    \"rate\": 100,\n    \"per\": 5,\n    \"org_id\": \"53ac07777cbb8c2d53000002\"\n}"
+                                                },
+                                                "url": {
+                                                    "raw": "{{baseUrl}}/tyk/keys/:keyID?suppress_reset=1",
+                                                    "host": [
+                                                        "{{baseUrl}}"
+                                                    ],
+                                                    "path": [
+                                                        "tyk",
+                                                        "keys",
+                                                        ":keyID"
+                                                    ],
+                                                    "query": [
+                                                        {
+                                                            "key": "suppress_reset",
+                                                            "value": "1"
+                                                        }
+                                                    ],
+                                                    "variable": [
+                                                        {
+                                                            "key": "keyID"
+                                                        }
+                                                    ]
+                                                }
+                                            },
+                                            "status": "Bad Request",
+                                            "code": 400,
+                                            "_postman_previewlanguage": "json",
+                                            "header": [
+                                                {
+                                                    "key": "Content-Type",
+                                                    "value": "application/json"
+                                                }
+                                            ],
+                                            "cookie": [],
+                                            "responseTime": null,
+                                            "body": "{\n \"message\": \"Key ID not specified\",\n \"status\": \"error\"\n}"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Delete Key",
+                                    "id": "c565aeb9-7925-461a-b02a-bd1f87a8bff0",
+                                    "request": {
+                                        "method": "DELETE",
+                                        "header": [],
+                                        "url": {
+                                            "raw": "{{baseUrl}}/tyk/keys/:keyID",
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "path": [
+                                                "tyk",
+                                                "keys",
+                                                ":keyID"
+                                            ],
+                                            "variable": [
+                                                {
+                                                    "id": "2c23e525-b1c8-4ba8-8b00-a5ef5bd9a6c5",
+                                                    "key": "keyID",
+                                                    "value": "aliqua",
+                                                    "description": "(Required) The Key ID"
+                                                }
+                                            ]
+                                        },
+                                        "description": "Deleting a key will remove it permanently from the system, however analytics relating to that key will still be available."
+                                    },
+                                    "response": [
+                                        {
+                                            "id": "d33ad2fc-1709-4003-af46-4961f457e050",
+                                            "name": "Key deleted",
+                                            "originalRequest": {
+                                                "method": "DELETE",
+                                                "header": [
+                                                    {
+                                                        "description": "Added as a part of security scheme: apikey",
+                                                        "key": "X-Tyk-Authorization",
+                                                        "value": "<API Key>"
+                                                    }
+                                                ],
+                                                "url": {
+                                                    "raw": "{{baseUrl}}/tyk/keys/:keyID",
+                                                    "host": [
+                                                        "{{baseUrl}}"
+                                                    ],
+                                                    "path": [
+                                                        "tyk",
+                                                        "keys",
+                                                        ":keyID"
+                                                    ],
+                                                    "variable": [
+                                                        {
+                                                            "key": "keyID"
+                                                        }
+                                                    ]
+                                                }
+                                            },
+                                            "status": "OK",
+                                            "code": 200,
+                                            "_postman_previewlanguage": "json",
+                                            "header": [
+                                                {
+                                                    "key": "Content-Type",
+                                                    "value": "application/json"
+                                                }
+                                            ],
+                                            "cookie": [],
+                                            "responseTime": null,
+                                            "body": "{\n \"action\": \"Key deleted\",\n \"status\": \"ok\"\n}"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "id": "81eddf52-0116-4a2a-8aec-453ca1b2b660"
+                        },
+                        {
+                            "name": "List Keys",
+                            "id": "373ac346-0c78-418c-8324-07f2a2bb14c2",
+                            "request": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{baseUrl}}/tyk/keys",
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "path": [
+                                        "tyk",
+                                        "keys"
+                                    ]
+                                },
+                                "description": "You can retrieve all the keys in your Tyk instance. Returns an array of Key IDs."
+                            },
+                            "response": [
+                                {
+                                    "id": "99acf89d-5621-4356-a85b-2c19e8c2aa48",
+                                    "name": "List of all API keys",
+                                    "originalRequest": {
+                                        "method": "GET",
+                                        "header": [
+                                            {
+                                                "description": "Added as a part of security scheme: apikey",
+                                                "key": "X-Tyk-Authorization",
+                                                "value": "<API Key>"
+                                            }
+                                        ],
+                                        "url": {
+                                            "raw": "{{baseUrl}}/tyk/keys",
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "path": [
+                                                "tyk",
+                                                "keys"
+                                            ]
+                                        }
+                                    },
+                                    "status": "OK",
+                                    "code": 200,
+                                    "_postman_previewlanguage": "json",
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                        }
+                                    ],
+                                    "cookie": [],
+                                    "responseTime": null,
+                                    "body": "[\n \"consequat fugiat et commodo\",\n \"elit si\"\n]"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Create a key",
+                            "id": "6937b142-b2bf-4120-93a7-824288ece75e",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"quota_max\": 60,\n    \"quota_renews\": 1406121006,\n    \"quota_renewal_rate\": 60,\n    \"allowance\": 100,\n    \"rate\": 100,\n    \"per\": 5,\n    \"org_id\": \"53ac07777cbb8c2d53000002\"\n}"
+                                },
+                                "url": {
+                                    "raw": "{{baseUrl}}/tyk/keys",
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "path": [
+                                        "tyk",
+                                        "keys"
+                                    ]
+                                },
+                                "description": "Tyk will generate the access token based on the OrgID specified in the API Definition and a random UUID. This ensures that keys can be \"owned\" by different API Owners should segmentation be needed at an organisational level.\n<br/><br/>\nAPI keys without access_rights data will be written to all APIs on the system (this also means that they will be created across all SessionHandlers and StorageHandlers, it is recommended to always embed access_rights data in a key to ensure that only targeted APIs and their back-ends are written to."
+                            },
+                            "response": [
+                                {
+                                    "id": "d88eb2a8-37dd-4462-9829-a220849aba43",
+                                    "name": "New Key added",
+                                    "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                            {
+                                                "description": "Added as a part of security scheme: apikey",
+                                                "key": "X-Tyk-Authorization",
+                                                "value": "<API Key>"
+                                            }
+                                        ],
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n    \"quota_max\": 60,\n    \"quota_renews\": 1406121006,\n    \"quota_renewal_rate\": 60,\n    \"allowance\": 100,\n    \"rate\": 100,\n    \"per\": 5,\n    \"org_id\": \"53ac07777cbb8c2d53000002\"\n}"
+                                        },
+                                        "url": {
+                                            "raw": "{{baseUrl}}/tyk/keys",
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "path": [
+                                                "tyk",
+                                                "keys"
+                                            ]
+                                        }
+                                    },
+                                    "status": "OK",
+                                    "code": 200,
+                                    "_postman_previewlanguage": "json",
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                        }
+                                    ],
+                                    "cookie": [],
+                                    "responseTime": null,
+                                    "body": "{\n \"action\": \"created\",\n \"key\": \"{...KEY JSON definition...}\",\n \"status\": \"ok\"\n}"
+                                },
+                                {
+                                    "id": "abbbbb38-42e7-4a9b-89f3-b79f6e1067a8",
+                                    "name": "Malformed data",
+                                    "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                            {
+                                                "description": "Added as a part of security scheme: apikey",
+                                                "key": "X-Tyk-Authorization",
+                                                "value": "<API Key>"
+                                            }
+                                        ],
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n    \"quota_max\": 60,\n    \"quota_renews\": 1406121006,\n    \"quota_renewal_rate\": 60,\n    \"allowance\": 100,\n    \"rate\": 100,\n    \"per\": 5,\n    \"org_id\": \"53ac07777cbb8c2d53000002\"\n}"
+                                        },
+                                        "url": {
+                                            "raw": "{{baseUrl}}/tyk/keys",
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "path": [
+                                                "tyk",
+                                                "keys"
+                                            ]
+                                        }
+                                    },
+                                    "status": "Bad Request",
+                                    "code": 400,
+                                    "_postman_previewlanguage": "json",
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                        }
+                                    ],
+                                    "cookie": [],
+                                    "responseTime": null,
+                                    "body": "{\n \"message\": \"Malformed Key data\",\n \"status\": \"error\"\n}"
+                                }
+                            ]
+                        }
+                    ],
+                    "id": "fcedcd74-ffff-4199-a472-4240428de8cb"
+                },
+                {
+                    "name": "oauth",
+                    "item": [
+                        {
+                            "name": "clients",
+                            "item": [
+                                {
+                                    "name": "{api ID}",
+                                    "item": [
+                                        {
+                                            "name": "{key Name}",
+                                            "item": [
+                                                {
+                                                    "name": "Get OAuth client",
+                                                    "id": "be6398d6-a807-42d1-9104-13977a480827",
+                                                    "request": {
+                                                        "method": "GET",
+                                                        "header": [],
+                                                        "url": {
+                                                            "raw": "{{baseUrl}}/tyk/oauth/clients/:apiID/:keyName",
+                                                            "host": [
+                                                                "{{baseUrl}}"
+                                                            ],
+                                                            "path": [
+                                                                "tyk",
+                                                                "oauth",
+                                                                "clients",
+                                                                ":apiID",
+                                                                ":keyName"
+                                                            ],
+                                                            "variable": [
+                                                                {
+                                                                    "id": "79c2fc14-5613-43e1-863c-7872a37ce411",
+                                                                    "key": "apiID",
+                                                                    "value": "esse",
+                                                                    "description": "(Required) The API ID"
+                                                                },
+                                                                {
+                                                                    "id": "b862bc4f-c066-4b2f-acc7-b540072bc3c2",
+                                                                    "key": "keyName",
+                                                                    "value": "aliqua",
+                                                                    "description": "(Required) The Client ID"
+                                                                }
+                                                            ]
+                                                        }
+                                                    },
+                                                    "response": [
+                                                        {
+                                                            "id": "3b4958b0-515c-4704-b656-a1d4146ab09c",
+                                                            "name": "Get OAuth client details or a list of OAuth clients",
+                                                            "originalRequest": {
+                                                                "method": "GET",
+                                                                "header": [
+                                                                    {
+                                                                        "description": "Added as a part of security scheme: apikey",
+                                                                        "key": "X-Tyk-Authorization",
+                                                                        "value": "<API Key>"
+                                                                    }
+                                                                ],
+                                                                "url": {
+                                                                    "raw": "{{baseUrl}}/tyk/oauth/clients/:apiID/:keyName",
+                                                                    "host": [
+                                                                        "{{baseUrl}}"
+                                                                    ],
+                                                                    "path": [
+                                                                        "tyk",
+                                                                        "oauth",
+                                                                        "clients",
+                                                                        ":apiID",
+                                                                        ":keyName"
+                                                                    ],
+                                                                    "variable": [
+                                                                        {
+                                                                            "key": "apiID"
+                                                                        },
+                                                                        {
+                                                                            "key": "keyName"
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            },
+                                                            "status": "OK",
+                                                            "code": 200,
+                                                            "_postman_previewlanguage": "json",
+                                                            "header": [
+                                                                {
+                                                                    "key": "Content-Type",
+                                                                    "value": "application/json"
+                                                                }
+                                                            ],
+                                                            "cookie": [],
+                                                            "responseTime": null,
+                                                            "body": "{\n \"client_id\": \"test\",\n \"api_id\": \"id\",\n \"policy_id\": \"policy\"\n}"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "name": "Delete OAuth client",
+                                                    "id": "78e9b071-73bc-4fca-b818-1b17c288eb96",
+                                                    "request": {
+                                                        "method": "DELETE",
+                                                        "header": [],
+                                                        "url": {
+                                                            "raw": "{{baseUrl}}/tyk/oauth/clients/:apiID/:keyName",
+                                                            "host": [
+                                                                "{{baseUrl}}"
+                                                            ],
+                                                            "path": [
+                                                                "tyk",
+                                                                "oauth",
+                                                                "clients",
+                                                                ":apiID",
+                                                                ":keyName"
+                                                            ],
+                                                            "variable": [
+                                                                {
+                                                                    "id": "90b7617c-508d-40cb-9d0c-ec0d168fb529",
+                                                                    "key": "apiID",
+                                                                    "value": "esse",
+                                                                    "description": "(Required) The API ID"
+                                                                },
+                                                                {
+                                                                    "id": "b2c971d3-0342-4bb0-8a82-10bb691718d7",
+                                                                    "key": "keyName",
+                                                                    "value": "aliqua",
+                                                                    "description": "(Required) The Client ID"
+                                                                }
+                                                            ]
+                                                        },
+                                                        "description": "Please note that tokens issued with the client ID will still be valid until they expire."
+                                                    },
+                                                    "response": [
+                                                        {
+                                                            "id": "11dd204d-2a19-4883-acaa-924e4306d53a",
+                                                            "name": "OAuth client deleted",
+                                                            "originalRequest": {
+                                                                "method": "DELETE",
+                                                                "header": [
+                                                                    {
+                                                                        "description": "Added as a part of security scheme: apikey",
+                                                                        "key": "X-Tyk-Authorization",
+                                                                        "value": "<API Key>"
+                                                                    }
+                                                                ],
+                                                                "url": {
+                                                                    "raw": "{{baseUrl}}/tyk/oauth/clients/:apiID/:keyName",
+                                                                    "host": [
+                                                                        "{{baseUrl}}"
+                                                                    ],
+                                                                    "path": [
+                                                                        "tyk",
+                                                                        "oauth",
+                                                                        "clients",
+                                                                        ":apiID",
+                                                                        ":keyName"
+                                                                    ],
+                                                                    "variable": [
+                                                                        {
+                                                                            "key": "apiID"
+                                                                        },
+                                                                        {
+                                                                            "key": "keyName"
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            },
+                                                            "status": "OK",
+                                                            "code": 200,
+                                                            "_postman_previewlanguage": "json",
+                                                            "header": [
+                                                                {
+                                                                    "key": "Content-Type",
+                                                                    "value": "application/json"
+                                                                }
+                                                            ],
+                                                            "cookie": [],
+                                                            "responseTime": null,
+                                                            "body": "{\n \"action\": \"deleted\",\n \"status\": \"ok\"\n}"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "name": "List tokens",
+                                                    "id": "aad99308-cead-4a70-8b12-371c86baf2b3",
+                                                    "request": {
+                                                        "method": "GET",
+                                                        "header": [],
+                                                        "url": {
+                                                            "raw": "{{baseUrl}}/tyk/oauth/clients/:apiID/:keyName/tokens",
+                                                            "host": [
+                                                                "{{baseUrl}}"
+                                                            ],
+                                                            "path": [
+                                                                "tyk",
+                                                                "oauth",
+                                                                "clients",
+                                                                ":apiID",
+                                                                ":keyName",
+                                                                "tokens"
+                                                            ],
+                                                            "variable": [
+                                                                {
+                                                                    "id": "1c682f60-9c2f-41b9-b6d7-d77d865384ad",
+                                                                    "key": "apiID",
+                                                                    "value": "esse",
+                                                                    "description": "(Required) The API ID"
+                                                                },
+                                                                {
+                                                                    "id": "f82dad20-cde6-4cd4-bdd6-8f92a255546c",
+                                                                    "key": "keyName",
+                                                                    "value": "aliqua",
+                                                                    "description": "(Required) The Client ID"
+                                                                }
+                                                            ]
+                                                        },
+                                                        "description": "This endpoint allows you to retrieve a list of all current tokens and their expiry date for a provided API ID and OAuth-client ID in the following format. This endpoint will work only for newly created tokens. <br/> <br/> You can control how long you want to store expired tokens in this list using `oauth_token_expired_retain_period` gateway option, which specifies retain period for expired tokens stored in Redis. By default expired token not get removed. See <a href=\"https://tyk.io/docs/configure/tyk-gateway-configuration-options/#a-name-oauth-token-expired-retain-period-a-oauth-token-expired-retain-period\" target=\"_blank\">here</a> for more details."
+                                                    },
+                                                    "response": [
+                                                        {
+                                                            "id": "05b8bf7d-b0f4-4595-b838-8f764268494e",
+                                                            "name": "Get a list of tokens",
+                                                            "originalRequest": {
+                                                                "method": "GET",
+                                                                "header": [
+                                                                    {
+                                                                        "description": "Added as a part of security scheme: apikey",
+                                                                        "key": "X-Tyk-Authorization",
+                                                                        "value": "<API Key>"
+                                                                    }
+                                                                ],
+                                                                "url": {
+                                                                    "raw": "{{baseUrl}}/tyk/oauth/clients/:apiID/:keyName/tokens",
+                                                                    "host": [
+                                                                        "{{baseUrl}}"
+                                                                    ],
+                                                                    "path": [
+                                                                        "tyk",
+                                                                        "oauth",
+                                                                        "clients",
+                                                                        ":apiID",
+                                                                        ":keyName",
+                                                                        "tokens"
+                                                                    ],
+                                                                    "variable": [
+                                                                        {
+                                                                            "key": "apiID"
+                                                                        },
+                                                                        {
+                                                                            "key": "keyName"
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            },
+                                                            "status": "OK",
+                                                            "code": 200,
+                                                            "_postman_previewlanguage": "json",
+                                                            "header": [
+                                                                {
+                                                                    "key": "Content-Type",
+                                                                    "value": "application/json"
+                                                                }
+                                                            ],
+                                                            "cookie": [],
+                                                            "responseTime": null,
+                                                            "body": "[\n \"tok1\",\n \"tok2\"\n]"
+                                                        }
+                                                    ]
+                                                }
+                                            ],
+                                            "id": "1c0926ee-ec20-45ac-bba6-854edef146f1"
+                                        },
+                                        {
+                                            "name": "List oAuth clients",
+                                            "id": "eaf86a8f-935b-45a0-9967-112da59ba6a1",
+                                            "request": {
+                                                "method": "GET",
+                                                "header": [],
+                                                "url": {
+                                                    "raw": "{{baseUrl}}/tyk/oauth/clients/:apiID",
+                                                    "host": [
+                                                        "{{baseUrl}}"
+                                                    ],
+                                                    "path": [
+                                                        "tyk",
+                                                        "oauth",
+                                                        "clients",
+                                                        ":apiID"
+                                                    ],
+                                                    "variable": [
+                                                        {
+                                                            "id": "d7c7335f-8838-43f9-be71-6453cb4085a6",
+                                                            "key": "apiID",
+                                                            "value": "aliqua",
+                                                            "description": "(Required) The API ID"
+                                                        }
+                                                    ]
+                                                },
+                                                "description": "OAuth Clients are organised by API ID, and therefore are queried as such."
+                                            },
+                                            "response": [
+                                                {
+                                                    "id": "05bb77a3-381e-44f0-a62c-8c5529b5c72c",
+                                                    "name": "Get OAuth client details or a list of OAuth clients",
+                                                    "originalRequest": {
+                                                        "method": "GET",
+                                                        "header": [
+                                                            {
+                                                                "description": "Added as a part of security scheme: apikey",
+                                                                "key": "X-Tyk-Authorization",
+                                                                "value": "<API Key>"
+                                                            }
+                                                        ],
+                                                        "url": {
+                                                            "raw": "{{baseUrl}}/tyk/oauth/clients/:apiID",
+                                                            "host": [
+                                                                "{{baseUrl}}"
+                                                            ],
+                                                            "path": [
+                                                                "tyk",
+                                                                "oauth",
+                                                                "clients",
+                                                                ":apiID"
+                                                            ],
+                                                            "variable": [
+                                                                {
+                                                                    "key": "apiID"
+                                                                }
+                                                            ]
+                                                        }
+                                                    },
+                                                    "status": "OK",
+                                                    "code": 200,
+                                                    "_postman_previewlanguage": "json",
+                                                    "header": [
+                                                        {
+                                                            "key": "Content-Type",
+                                                            "value": "application/json"
+                                                        }
+                                                    ],
+                                                    "cookie": [],
+                                                    "responseTime": null,
+                                                    "body": "[\n {\n  \"api_id\": \"ex\",\n  \"client_id\": \"officia nulla minim Excepteur dolore\",\n  \"description\": \"eiusmod officia aliqua nostrud\",\n  \"meta_data\": {},\n  \"policy_id\": \"aliquip off\",\n  \"redirect_uri\": \"consectetur labore\",\n  \"secret\": \"eiusmod ea tempor minim\"\n },\n {\n  \"api_id\": \"veniam cupidatat incididunt\",\n  \"client_id\": \"dolore nostrud\",\n  \"description\": \"incididunt in anim\",\n  \"meta_data\": {},\n  \"policy_id\": \"exercitation magna sed officia ipsum\",\n  \"redirect_uri\": \"\",\n  \"secret\": \"elit tempor nisi et\"\n }\n]"
+                                                }
+                                            ]
+                                        }
+                                    ],
+                                    "id": "8bf0294b-0579-41c9-8006-dd60fc96e766"
+                                },
+                                {
+                                    "name": "Create new OAuth client",
+                                    "id": "d738437f-e0d4-4d17-b7f0-b29446b4e1fc",
+                                    "request": {
+                                        "method": "POST",
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n    \"client_id\": \"test\",\n    \"api_id\": \"id\",\n    \"policy_id\": \"policy\"\n}"
+                                        },
+                                        "url": {
+                                            "raw": "{{baseUrl}}/tyk/oauth/clients/create",
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "path": [
+                                                "tyk",
+                                                "oauth",
+                                                "clients",
+                                                "create"
+                                            ]
+                                        },
+                                        "description": "Any OAuth keys must be generated with the help of a client ID. These need to be pre-registered with Tyk before they can be used (in a similar vein to how you would register your app with Twitter before attempting to ask user permissions using their API). <br/><br/> <h3>Creating OAuth clients with Access to Multiple APIs</h3> New from Tyk Gateway 2.6.0 is the ability to create OAuth clients with access to more than one API. If you provide the api_id it works the same as in previous releases. If you don¿ït provide the api_id the request uses policy access rights and enumerates APIs from their setting in the newly created OAuth-client."
+                                    },
+                                    "response": [
+                                        {
+                                            "id": "fa87c3be-70d0-4fd8-848b-a21f536e76aa",
+                                            "name": "Client created",
+                                            "originalRequest": {
+                                                "method": "POST",
+                                                "header": [
+                                                    {
+                                                        "description": "Added as a part of security scheme: apikey",
+                                                        "key": "X-Tyk-Authorization",
+                                                        "value": "<API Key>"
+                                                    }
+                                                ],
+                                                "body": {
+                                                    "mode": "raw",
+                                                    "raw": "{\n    \"client_id\": \"test\",\n    \"api_id\": \"id\",\n    \"policy_id\": \"policy\"\n}"
+                                                },
+                                                "url": {
+                                                    "raw": "{{baseUrl}}/tyk/oauth/clients/create",
+                                                    "host": [
+                                                        "{{baseUrl}}"
+                                                    ],
+                                                    "path": [
+                                                        "tyk",
+                                                        "oauth",
+                                                        "clients",
+                                                        "create"
+                                                    ]
+                                                }
+                                            },
+                                            "status": "OK",
+                                            "code": 200,
+                                            "_postman_previewlanguage": "json",
+                                            "header": [
+                                                {
+                                                    "key": "Content-Type",
+                                                    "value": "application/json"
+                                                }
+                                            ],
+                                            "cookie": [],
+                                            "responseTime": null,
+                                            "body": "{\n \"client_id\": \"test\",\n \"api_id\": \"id\",\n \"policy_id\": \"policy\"\n}"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "id": "0af58d66-8c31-4919-95e6-ba834d5e6189"
+                        },
+                        {
+                            "name": "Invalidate OAuth refresh token",
+                            "id": "92503be8-9983-4a95-8b1d-2e9e6b8d8148",
+                            "request": {
+                                "method": "DELETE",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{baseUrl}}/tyk/oauth/refresh/:keyName?api_id=aliqua",
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "path": [
+                                        "tyk",
+                                        "oauth",
+                                        "refresh",
+                                        ":keyName"
+                                    ],
+                                    "query": [
+                                        {
+                                            "key": "api_id",
+                                            "value": "aliqua",
+                                            "description": "(Required) The API id"
+                                        }
+                                    ],
+                                    "variable": [
+                                        {
+                                            "id": "d1ced587-154b-4aec-82fa-33bd47a78a88",
+                                            "key": "keyName",
+                                            "value": "aliqua",
+                                            "description": "(Required) Refresh token"
+                                        }
+                                    ]
+                                },
+                                "description": "It is possible to invalidate refresh tokens in order to manage OAuth client access more robustly."
+                            },
+                            "response": [
+                                {
+                                    "id": "f63fc090-d038-48eb-b5c7-327ca81cb4c5",
+                                    "name": "Deleted",
+                                    "originalRequest": {
+                                        "method": "DELETE",
+                                        "header": [
+                                            {
+                                                "description": "Added as a part of security scheme: apikey",
+                                                "key": "X-Tyk-Authorization",
+                                                "value": "<API Key>"
+                                            }
+                                        ],
+                                        "url": {
+                                            "raw": "{{baseUrl}}/tyk/oauth/refresh/:keyName?api_id=aliqua",
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "path": [
+                                                "tyk",
+                                                "oauth",
+                                                "refresh",
+                                                ":keyName"
+                                            ],
+                                            "query": [
+                                                {
+                                                    "key": "api_id",
+                                                    "value": "aliqua"
+                                                }
+                                            ],
+                                            "variable": [
+                                                {
+                                                    "key": "keyName"
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    "status": "OK",
+                                    "code": 200,
+                                    "_postman_previewlanguage": "json",
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                        }
+                                    ],
+                                    "cookie": [],
+                                    "responseTime": null,
+                                    "body": "{\n \"action\": \"laboris esse occaecat\",\n \"key\": \"nisi\",\n \"key_hash\": \"eu\",\n \"status\": \"dolor mollit dolore fugiat\"\n}"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Authorize client",
+                            "id": "ff30be9b-e84b-42f1-928a-fa560a650cfe",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/x-www-form-urlencoded"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "urlencoded",
+                                    "urlencoded": [
+                                        {
+                                            "key": "response_type",
+                                            "value": "code",
+                                            "description": "Should be provided by requesting client as part of authorisation request, this should be either `code` or `token` depending on the methods you have specified for the API."
+                                        },
+                                        {
+                                            "key": "client_id",
+                                            "value": "21e2baf424674f6461faca6d45285bbb",
+                                            "description": "Should be provided by requesting client as part of authorisation request. The Client ID that is making the request."
+                                        },
+                                        {
+                                            "key": "redirect_uri",
+                                            "value": "http%3A%2F%2Foauth.com%2Fredirect",
+                                            "description": "Should be provided by requesting client as part of authorisation request. Must match with the record stored with Tyk."
+                                        },
+                                        {
+                                            "key": "key_rules",
+                                            "value": "%7B+++++%22allowance%22%3A+999%2C+++++%22rate%22%3A+1000%2C+++++%22per%22%3A+60%2C+++++%22expires%22%3A+0%2C+++++%22quota_max%22%3A+-1%2C+++++%22quota_renews%22%3A+1406121006%2C+++++%22quota_remaining%22%3A+0%2C+++++%22quota_renewal_rate%22%3A+60%2C+++++%22access_rights%22%3A+%7B+++++++++%22528a67c1ac9940964f9a41ae79235fcc%22%3A+%7B+++++++++++++%22api_name%22%3A+%22OAuth+Test+API%22%2C+++++++++++++%22api_id%22%3A+%22528a67c1ac9940964f9a41ae79235fcc%22%2C+++++++++++++%22versions%22%3A+%5B+++++++++++++++++%22Default%22+++++++++++++%5D+++++++++%7D+++++%7D%2C+++++%22org_id%22%3A+%2253ac07777cbb8c2d53000002%22+%7D",
+                                            "description": "A string representation of a Session Object (form-encoded). This should be provided by your application in order to apply any quotas or rules to the key."
+                                        }
+                                    ]
+                                },
+                                "url": {
+                                    "raw": "{{baseUrl}}/tyk/oauth/authorize-client/",
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "path": [
+                                        "tyk",
+                                        "oauth",
+                                        "authorize-client",
+                                        ""
+                                    ]
+                                },
+                                "description": "With the OAuth flow you will need to create authorisation or access tokens for your clients, in order to do this, Tyk provides a private API endpoint for your application to generate these codes and redirect the end-user back to the API Client."
+                            },
+                            "response": [
+                                {
+                                    "id": "1c18d279-91b0-4c3d-a269-62797acb3f0e",
+                                    "name": "Succesful response",
+                                    "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                            {
+                                                "description": "Added as a part of security scheme: apikey",
+                                                "key": "X-Tyk-Authorization",
+                                                "value": "<API Key>"
+                                            }
+                                        ],
+                                        "body": {
+                                            "mode": "urlencoded",
+                                            "urlencoded": [
+                                                {
+                                                    "description": "Should be provided by requesting client as part of authorisation request, this should be either `code` or `token` depending on the methods you have specified for the API.",
+                                                    "key": "response_type",
+                                                    "value": "code"
+                                                },
+                                                {
+                                                    "description": "Should be provided by requesting client as part of authorisation request. The Client ID that is making the request.",
+                                                    "key": "client_id",
+                                                    "value": "21e2baf424674f6461faca6d45285bbb"
+                                                },
+                                                {
+                                                    "description": "Should be provided by requesting client as part of authorisation request. Must match with the record stored with Tyk.",
+                                                    "key": "redirect_uri",
+                                                    "value": "http%3A%2F%2Foauth.com%2Fredirect"
+                                                },
+                                                {
+                                                    "description": "A string representation of a Session Object (form-encoded). This should be provided by your application in order to apply any quotas or rules to the key.",
+                                                    "key": "key_rules",
+                                                    "value": "%7B+++++%22allowance%22%3A+999%2C+++++%22rate%22%3A+1000%2C+++++%22per%22%3A+60%2C+++++%22expires%22%3A+0%2C+++++%22quota_max%22%3A+-1%2C+++++%22quota_renews%22%3A+1406121006%2C+++++%22quota_remaining%22%3A+0%2C+++++%22quota_renewal_rate%22%3A+60%2C+++++%22access_rights%22%3A+%7B+++++++++%22528a67c1ac9940964f9a41ae79235fcc%22%3A+%7B+++++++++++++%22api_name%22%3A+%22OAuth+Test+API%22%2C+++++++++++++%22api_id%22%3A+%22528a67c1ac9940964f9a41ae79235fcc%22%2C+++++++++++++%22versions%22%3A+%5B+++++++++++++++++%22Default%22+++++++++++++%5D+++++++++%7D+++++%7D%2C+++++%22org_id%22%3A+%2253ac07777cbb8c2d53000002%22+%7D"
+                                                }
+                                            ]
+                                        },
+                                        "url": {
+                                            "raw": "{{baseUrl}}/tyk/oauth/authorize-client/",
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "path": [
+                                                "tyk",
+                                                "oauth",
+                                                "authorize-client",
+                                                ""
+                                            ]
+                                        }
+                                    },
+                                    "status": "OK",
+                                    "code": 200,
+                                    "_postman_previewlanguage": "json",
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                        }
+                                    ],
+                                    "cookie": [],
+                                    "responseTime": null,
+                                    "body": "{\n \"code\": \"MWY0ZDRkMzktOTYwNi00NDRiLTk2YmQtOWQxOGQ3Mjc5Yzdk\",\n \"redirect_to\": \"http://client-app.com/oauth-redirect/?code=MWY0ZDRkMzktOTYwNi00NDRiLTk2YmQtOWQxOGQ3Mjc5Yzdk\"\n}"
+                                }
+                            ]
+                        }
+                    ],
+                    "id": "4f683b7e-d0bd-4209-b5aa-bdd2f512b4da"
+                },
+                {
+                    "name": "org/keys",
+                    "item": [
+                        {
+                            "name": "List Organisation Keys",
+                            "id": "15d9af0a-ba96-4ce1-8833-06b98d967e2b",
+                            "request": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{baseUrl}}/tyk/org/keys",
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "path": [
+                                        "tyk",
+                                        "org",
+                                        "keys"
+                                    ]
+                                },
+                                "description": "You can now set rate limits at the organisation level by using the following fields - allowance and rate. These are the number of allowed requests for the specified per value, and need to be set to the same value. If you don¿ït want to have organisation level rate limiting, set ¿írate¿ì or ¿íper¿ì to zero, or don¿ït add them to your request."
+                            },
+                            "response": [
+                                {
+                                    "id": "7eb9ff50-ff7c-423f-a2a6-e3317bcb1bbd",
+                                    "name": "List of all API keys",
+                                    "originalRequest": {
+                                        "method": "GET",
+                                        "header": [
+                                            {
+                                                "description": "Added as a part of security scheme: apikey",
+                                                "key": "X-Tyk-Authorization",
+                                                "value": "<API Key>"
+                                            }
+                                        ],
+                                        "url": {
+                                            "raw": "{{baseUrl}}/tyk/org/keys",
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "path": [
+                                                "tyk",
+                                                "org",
+                                                "keys"
+                                            ]
+                                        }
+                                    },
+                                    "status": "OK",
+                                    "code": 200,
+                                    "_postman_previewlanguage": "json",
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                        }
+                                    ],
+                                    "cookie": [],
+                                    "responseTime": null,
+                                    "body": "{\n \"keys\": [\n  \"key1\",\n  \"key2\"\n ]\n}"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Create an organisation key",
+                            "id": "4e01d2b9-b427-4342-9075-138f866bc608",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"quota_max\": 60,\n    \"quota_renews\": 1406121006,\n    \"quota_renewal_rate\": 60,\n    \"allowance\": 100,\n    \"rate\": 100,\n    \"per\": 5,\n    \"org_id\": \"53ac07777cbb8c2d53000002\"\n}"
+                                },
+                                "url": {
+                                    "raw": "{{baseUrl}}/tyk/org/keys",
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "path": [
+                                        "tyk",
+                                        "org",
+                                        "keys"
+                                    ]
+                                },
+                                "description": "This work similar to Keys API except that Key ID is always equals Organisation ID"
+                            },
+                            "response": [
+                                {
+                                    "id": "425ee35f-6ec6-4f48-859b-5cb9ab482970",
+                                    "name": "New Key added",
+                                    "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                            {
+                                                "description": "Added as a part of security scheme: apikey",
+                                                "key": "X-Tyk-Authorization",
+                                                "value": "<API Key>"
+                                            }
+                                        ],
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n    \"quota_max\": 60,\n    \"quota_renews\": 1406121006,\n    \"quota_renewal_rate\": 60,\n    \"allowance\": 100,\n    \"rate\": 100,\n    \"per\": 5,\n    \"org_id\": \"53ac07777cbb8c2d53000002\"\n}"
+                                        },
+                                        "url": {
+                                            "raw": "{{baseUrl}}/tyk/org/keys",
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "path": [
+                                                "tyk",
+                                                "org",
+                                                "keys"
+                                            ]
+                                        }
+                                    },
+                                    "status": "OK",
+                                    "code": 200,
+                                    "_postman_previewlanguage": "json",
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                        }
+                                    ],
+                                    "cookie": [],
+                                    "responseTime": null,
+                                    "body": "{\n \"action\": \"created\",\n \"key\": \"{...KEY JSON definition...}\",\n \"status\": \"ok\"\n}"
+                                }
+                            ]
+                        }
+                    ],
+                    "id": "34c62ef6-b3c3-4467-a91e-7506ed4d8efd"
+                },
+                {
+                    "name": "orgs/keys/{key ID}",
+                    "item": [
+                        {
+                            "name": "Get an Organisation Key",
+                            "id": "ad709665-cb58-4796-9cd2-5f64d76d1850",
+                            "request": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{baseUrl}}/tyk/orgs/keys/:keyID",
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "path": [
+                                        "tyk",
+                                        "orgs",
+                                        "keys",
+                                        ":keyID"
+                                    ],
+                                    "variable": [
+                                        {
+                                            "id": "1487273b-c7c8-47ac-b8df-88aa209173b8",
+                                            "key": "keyID",
+                                            "value": "aliqua",
+                                            "description": "(Required) The Key ID"
+                                        }
+                                    ]
+                                },
+                                "description": "Get session info about specified orgnanisation key. Should return up to date rate limit and quota usage numbers."
+                            },
+                            "response": [
+                                {
+                                    "id": "39c97ee3-96e4-47bf-8d66-8a6723d801d8",
+                                    "name": "Key object",
+                                    "originalRequest": {
+                                        "method": "GET",
+                                        "header": [
+                                            {
+                                                "description": "Added as a part of security scheme: apikey",
+                                                "key": "X-Tyk-Authorization",
+                                                "value": "<API Key>"
+                                            }
+                                        ],
+                                        "url": {
+                                            "raw": "{{baseUrl}}/tyk/orgs/keys/:keyID",
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "path": [
+                                                "tyk",
+                                                "orgs",
+                                                "keys",
+                                                ":keyID"
+                                            ],
+                                            "variable": [
+                                                {
+                                                    "key": "keyID"
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    "status": "OK",
+                                    "code": 200,
+                                    "_postman_previewlanguage": "json",
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                        }
+                                    ],
+                                    "cookie": [],
+                                    "responseTime": null,
+                                    "body": "{\n \"tags\": [\n  \"in ad ex esse sunt\",\n  \"reprehenderit fugiat\"\n ],\n \"access_rights\": {},\n \"alias\": \"sunt aliquip proident labore\",\n \"allowance\": 72328632.32187095,\n \"apply_policies\": [\n  \"id velit exercitation pariatur\",\n  \"commodo\"\n ],\n \"apply_policy_id\": \"proiden\",\n \"basic_auth_data\": {\n  \"hash_type\": \"id nulla Duis non amet\",\n  \"password\": \"ipsum qui\"\n },\n \"certificate\": \"sit consectetur\",\n \"data_expires\": -86306118,\n \"enable_detail_recording\": false,\n \"expires\": 34062124,\n \"hmac_enabled\": true,\n \"hmac_string\": \"laboris\",\n \"id_extractor_deadline\": -4808559,\n \"is_inactive\": false,\n \"jwt_data\": {\n  \"secret\": \"cupidatat\"\n },\n \"last_check\": 95130290,\n \"last_updated\": \"dolor et\",\n \"meta_data\": {},\n \"monitor\": {\n  \"trigger_limits\": [\n   62549069.66807389,\n   67151577.5328106\n  ]\n },\n \"oauth_client_id\": \"anim nulla dolor irure\",\n \"oauth_keys\": {},\n \"org_id\": \"eiusmod ad mollit dolore\",\n \"per\": 69208905.97356838,\n \"quota_max\": 4584559,\n \"quota_remaining\": 82804093,\n \"quota_renewal_rate\": -41595017,\n \"quota_renews\": -40987247,\n \"rate\": -17260225.582710788,\n \"session_lifetime\": 2865559,\n \"throttle_interval\": 1112763.6359702349,\n \"throttle_retry_limit\": -93945808\n}"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Update Organisation Key",
+                            "id": "8b233aba-3b4c-4e64-8620-fe163c8817f6",
+                            "request": {
+                                "method": "PUT",
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"quota_max\": 60,\n    \"quota_renews\": 1406121006,\n    \"quota_renewal_rate\": 60,\n    \"allowance\": 100,\n    \"rate\": 100,\n    \"per\": 5,\n    \"org_id\": \"53ac07777cbb8c2d53000002\"\n}"
+                                },
+                                "url": {
+                                    "raw": "{{baseUrl}}/tyk/orgs/keys/:keyID?reset_quota=1",
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "path": [
+                                        "tyk",
+                                        "orgs",
+                                        "keys",
+                                        ":keyID"
+                                    ],
+                                    "query": [
+                                        {
+                                            "key": "reset_quota",
+                                            "value": "1",
+                                            "description": "Adding the `reset_quota` parameter and setting it to 1, will cause Tyk reset the organisations quota in the live quota manager, it is recommended to use this mechanism to reset organisation-level access if a monthly subscription is in place."
+                                        }
+                                    ],
+                                    "variable": [
+                                        {
+                                            "id": "6d5ffa83-4c8b-48e2-b7b6-badfd100d526",
+                                            "key": "keyID",
+                                            "value": "aliqua",
+                                            "description": "(Required) The Key ID"
+                                        }
+                                    ]
+                                },
+                                "description": "This work similar to Keys API except that Key ID is always equals Organisation ID\n\nFor Gateway v2.6.0 onwards, you can now set rate limits at the organisation level by using the following fields - allowance and rate. These are the number of allowed requests for the specified per value, and need to be set to the same value. If you don¿ït want to have organisation level rate limiting, set `rate` or `per` to zero, or don¿ït add them to your request."
+                            },
+                            "response": [
+                                {
+                                    "id": "19a8cebc-475b-4ba6-b272-a9931fc09313",
+                                    "name": "Key updated",
+                                    "originalRequest": {
+                                        "method": "PUT",
+                                        "header": [
+                                            {
+                                                "description": "Added as a part of security scheme: apikey",
+                                                "key": "X-Tyk-Authorization",
+                                                "value": "<API Key>"
+                                            }
+                                        ],
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n    \"quota_max\": 60,\n    \"quota_renews\": 1406121006,\n    \"quota_renewal_rate\": 60,\n    \"allowance\": 100,\n    \"rate\": 100,\n    \"per\": 5,\n    \"org_id\": \"53ac07777cbb8c2d53000002\"\n}"
+                                        },
+                                        "url": {
+                                            "raw": "{{baseUrl}}/tyk/orgs/keys/:keyID?reset_quota=1",
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "path": [
+                                                "tyk",
+                                                "orgs",
+                                                "keys",
+                                                ":keyID"
+                                            ],
+                                            "query": [
+                                                {
+                                                    "key": "reset_quota",
+                                                    "value": "1"
+                                                }
+                                            ],
+                                            "variable": [
+                                                {
+                                                    "key": "keyID"
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    "status": "OK",
+                                    "code": 200,
+                                    "_postman_previewlanguage": "json",
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                        }
+                                    ],
+                                    "cookie": [],
+                                    "responseTime": null,
+                                    "body": "{\n \"action\": \"updated\",\n \"status\": \"ok\"\n}"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Delete Organisation Key",
+                            "id": "2fd6d2ee-0e6e-43ae-8a73-729ed1fc35f3",
+                            "request": {
+                                "method": "DELETE",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{baseUrl}}/tyk/orgs/keys/:keyID",
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "path": [
+                                        "tyk",
+                                        "orgs",
+                                        "keys",
+                                        ":keyID"
+                                    ],
+                                    "variable": [
+                                        {
+                                            "id": "f0153ee6-915c-4c2e-80c1-2ad4d5d0086b",
+                                            "key": "keyID",
+                                            "value": "aliqua",
+                                            "description": "(Required) The Key ID"
+                                        }
+                                    ]
+                                },
+                                "description": "Deleting a key will remove all limits from organisation. It does not affects regualar keys created within organisation."
+                            },
+                            "response": [
+                                {
+                                    "id": "092ddba4-f04d-4baf-8ac5-633f98b4f820",
+                                    "name": "Key deleted",
+                                    "originalRequest": {
+                                        "method": "DELETE",
+                                        "header": [
+                                            {
+                                                "description": "Added as a part of security scheme: apikey",
+                                                "key": "X-Tyk-Authorization",
+                                                "value": "<API Key>"
+                                            }
+                                        ],
+                                        "url": {
+                                            "raw": "{{baseUrl}}/tyk/orgs/keys/:keyID",
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "path": [
+                                                "tyk",
+                                                "orgs",
+                                                "keys",
+                                                ":keyID"
+                                            ],
+                                            "variable": [
+                                                {
+                                                    "key": "keyID"
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    "status": "OK",
+                                    "code": 200,
+                                    "_postman_previewlanguage": "json",
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                        }
+                                    ],
+                                    "cookie": [],
+                                    "responseTime": null,
+                                    "body": "{\n \"action\": \"Key deleted\",\n \"status\": \"ok\"\n}"
+                                }
+                            ]
+                        }
+                    ],
+                    "id": "1a2ce5fa-66d2-499b-8d65-0cce498daca5"
+                },
+                {
+                    "name": "Invalidate cache",
+                    "id": "60dc5c49-4c68-4019-88a7-4278b07f5332",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/tyk/cache/:apiID",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "tyk",
+                                "cache",
+                                ":apiID"
+                            ],
+                            "variable": [
+                                {
+                                    "id": "885ec291-430e-49aa-9f65-d0fde2b3461e",
+                                    "key": "apiID",
+                                    "value": "aliqua",
+                                    "description": "(Required) The API ID"
+                                }
+                            ]
+                        },
+                        "description": "Invalidate cache for given API"
+                    },
+                    "response": [
+                        {
+                            "id": "4defe921-0d29-4512-945e-3e7825844e6a",
+                            "name": "Invalidate cache",
+                            "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                    {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-Tyk-Authorization",
+                                        "value": "<API Key>"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{baseUrl}}/tyk/cache/:apiID",
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "path": [
+                                        "tyk",
+                                        "cache",
+                                        ":apiID"
+                                    ],
+                                    "variable": [
+                                        {
+                                            "key": "apiID"
+                                        }
+                                    ]
+                                }
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "cookie": [],
+                            "responseTime": null,
+                            "body": "{\n \"message\": \"cache invalidated\",\n \"status\": \"ok\"\n}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Check the Health of the Gateway",
+                    "id": "72dcc818-c2e1-4350-8bee-9a719d1b07ef",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/tyk/hello",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "tyk",
+                                "hello"
+                            ]
+                        },
+                        "description": "From v2.7.5 you can now rename the `/hello`  endpoint by using the `health_check_endpoint_name` option\n\nReturns 200 response in case of success\n"
+                    },
+                    "response": [
+                        {
+                            "id": "31bbba8d-7317-4e8c-b6a7-f50277fadbca",
+                            "name": "Success",
+                            "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-Tyk-Authorization",
+                                        "value": "<API Key>"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{baseUrl}}/tyk/hello",
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "path": [
+                                        "tyk",
+                                        "hello"
+                                    ]
+                                }
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "_postman_previewlanguage": "text",
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "text/html"
+                                }
+                            ],
+                            "cookie": [],
+                            "responseTime": null,
+                            "body": "Hello Tiki"
+                        }
+                    ]
+                },
+                {
+                    "name": "Check the Health of the API",
+                    "id": "4b0d5f83-8644-4167-9711-403b5530b27a",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/tyk/:listenPath/hello",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "tyk",
+                                ":listenPath",
+                                "hello"
+                            ],
+                            "variable": [
+                                {
+                                    "id": "9dbaf95a-3e10-4e5d-a509-62543be10a7c",
+                                    "key": "listenPath",
+                                    "value": "aliqua",
+                                    "description": "(Required) Listen path of loaded API"
+                                }
+                            ]
+                        },
+                        "description": "Should point to API domain if it has own"
+                    },
+                    "response": [
+                        {
+                            "id": "56e78a41-6fdf-4fcf-b624-ca92b880a4ae",
+                            "name": "Success",
+                            "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-Tyk-Authorization",
+                                        "value": "<API Key>"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{baseUrl}}/tyk/:listenPath/hello",
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "path": [
+                                        "tyk",
+                                        ":listenPath",
+                                        "hello"
+                                    ],
+                                    "variable": [
+                                        {
+                                            "key": "listenPath"
+                                        }
+                                    ]
+                                }
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "_postman_previewlanguage": "text",
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "text/html"
+                                }
+                            ],
+                            "cookie": [],
+                            "responseTime": null,
+                            "body": "Hello Tiki"
+                        }
+                    ]
+                }
+            ],
+            "id": "e6fe9d50-c743-4fc0-a03d-5e95087fbc52"
+        },
+        {
+            "name": "Run batch request",
+            "id": "245ee45c-a636-4c4b-88ca-19ed3df0857b",
+            "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                    "raw": "{{baseUrl}}/:listen_path/tyk/batch",
+                    "host": [
+                        "{{baseUrl}}"
+                    ],
+                    "path": [
+                        ":listen_path",
+                        "tyk",
+                        "batch"
+                    ],
+                    "variable": [
+                        {
+                            "id": "446b1679-5688-490c-a2e7-f716f7a1511a",
+                            "key": "listen_path",
+                            "value": "aliqua",
+                            "description": "(Required) API listen path"
+                        }
+                    ]
+                }
+            },
+            "response": [
+                {
+                    "id": "a0b589a6-78fe-41a2-85f6-b8f05ca3d19a",
+                    "name": "apiStatusMessage represents an API status message",
+                    "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Tyk-Authorization",
+                                "value": "<API Key>"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/:listen_path/tyk/batch",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                ":listen_path",
+                                "tyk",
+                                "batch"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "listen_path"
+                                }
+                            ]
+                        }
+                    },
+                    "status": "OK",
+                    "code": 200,
+                    "_postman_previewlanguage": "text",
+                    "header": [
+                        {
+                            "key": "Content-Type",
+                            "value": "text/plain"
+                        }
+                    ],
+                    "cookie": [],
+                    "responseTime": null,
+                    "body": ""
+                }
+            ]
+        }
+    ],
+    "auth": {
+        "type": "apikey",
+        "apikey": [
+            {
+                "key": "key",
+                "value": "X-Tyk-Authorization",
+                "type": "string"
+            },
+            {
+                "key": "value",
+                "value": "<API Key>",
+                "type": "string"
+            },
+            {
+                "key": "in",
+                "value": "header",
+                "type": "string"
+            }
+        ]
+    },
+    "variable": [
+        {
+            "id": "2c0beac9-77d8-4e03-8a19-56a1809f94cb",
+            "key": "baseUrl",
+            "value": "http://localhost:8080",
+            "type": "string"
+        }
+    ]
+}
